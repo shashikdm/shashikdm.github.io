@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>Graph Plotter</title>
+  <link rel="stylesheet" href="gp-style.css">
+  <script src="gp-jscript.js"></script>
+ </head>
+ <body>
+  <div id="function"></div>
+  <div id="keys">
+   <button onclick="display('1')">1</button>
+   <button onclick="display('2')">2</button>
+   <button onclick="display('3')">3</button>
+   <button onclick="display('+')">+</button>
+   <br/>
+   <button onclick="display('4')">4</button>
+   <button onclick="display('5')">5</button>
+   <button onclick="display('6')">6</button>
+   <button onclick="display('-')">-</button>
+   <br/>
+   <button onclick="display('7')">7</button>
+   <button onclick="display('8')">8</button>
+   <button onclick="display('9')">9</button>
+   <button onclick="display('*')">*</button>
+   <br/>
+   <button onclick="display('.')">.</button>
+   <button onclick="display('0')">0</button>
+   <button onclick="display(',')">,</button>
+   <button onclick="display('/')">/</button>
+   <br/>
+   <button onclick="display('(')">(</button>
+   <button onclick="display(')')">)</button>
+   <button onclick="allclear()">AC</button>
+   <button onclick="display('p')">pow</button>
+   <br/>
+   <button onclick="display('s')">sin</button>
+   <button onclick="display('c')">cos</button>
+   <button onclick="display('l')">log</button>
+   <button onclick="display('a')">abs</button>
+   <br/>
+   <button onclick="display('x')">x</button>
+   <button onclick="init()">Plot</button>
+   </div>
+  </table>
+  <div id="x">x</div>
+  <div id="y">y</div>
+  <svg>
+  </svg>
+ </body>
+</html>

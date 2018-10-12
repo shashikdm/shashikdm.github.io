@@ -1,0 +1,44 @@
+svg
+{
+    transform:scaleY(-1);
+    top:0px;
+    left:0px;
+}
+#function
+{
+    display:block;
+    margin:auto;
+    border:1px solid black;
+    font-size:150%;
+}
+#keys
+{
+    text-align:center;
+}
+button
+{
+    height:12vh;
+    width:24%;
+    display:inline-block;
+    font-size:150%;
+}
+body
+{  
+    margin-top:5px;
+    border-top:5px;
+    background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
+}
+#x
+{
+    visibility:hidden;
+    position:absolute;
+    top:45vh;
+    right:0px;
+}
+#y
+{
+    visibility:hidden;
+    position:absolute;
+    top:0px;
+    right:46vw;
+}

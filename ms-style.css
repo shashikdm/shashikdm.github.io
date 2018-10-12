@@ -1,0 +1,26 @@
+table
+{
+    width:90vw;
+    table-layout:fixed;
+    margin:auto;
+}
+td
+{
+    border: solid black;
+    border-radius:4px;
+    height:8vw;
+    width:8vw;
+    text-align:center;
+    color:white;
+}
+#timer
+{
+    text-align:center;
+    font-family:courier;
+    font-size:150%;
+}
+button
+{
+    display:block;
+    margin:auto;
+}

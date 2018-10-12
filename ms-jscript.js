@@ -1,0 +1,207 @@
+onload=start;
+var str="open",i,j,table,map=new Array(9),flag1=true,watch,tym=0;
+function start()
+{
+    alert("Instructions:\nClick once on a cell to mark\nClick again to open\nClick on Remove Mark button and then click on a mark to remove it\nHave fun playing!")
+    table=document.getElementById("map");
+    watch=document.getElementById("timer");
+    watch.innerHTML="0:0";
+    table.innerHTML="";
+    for(i=0;i<9;i++)
+    {
+        map[i]=new Array(9);
+        table.insertRow(i);
+        for(j=0;j<9;j++)
+        {
+            map[i][j]={state:"unmarked",mine:false,num:0};
+            table.rows[i].insertCell(j);
+            table.rows[i].cells[j].addEventListener("click",play);
+        }
+    }
+    for(i=0;i<10;i++)
+    {
+        l=Math.random()*80;
+        for(j=1;j<l;j++);
+        while(map[Math.floor(j/9)][j%9].mine)
+        {
+            j++;
+        }
+        map[Math.floor(j/9)][j%9].mine=true;
+    }
+    for(i=0;i<9;i++)
+    {
+        for(j=0;j<9;j++)
+        {
+            var a,b;
+            a=i-1;
+            for(b=j-1;b<=j+1;b++)
+            {
+                if((a>=0)&&(b>=0)&&(b<9)&&(map[a][b].mine))
+                {
+                    map[i][j].num++;
+                }
+            }
+            a++;
+            b=j-1;
+            if((b>=0)&&(map[a][b].mine))
+            {
+                map[i][j].num++;
+            }
+            b=j+1;
+            if((a<9)&&(b<9)&&(map[a][b].mine))
+            {
+                map[i][j].num++;
+            }
+            a++;
+            for(b=j-1;b<=j+1;b++)
+            {
+                if((a<9)&&(b>=0)&&(b<9)&&(map[a][b].mine))
+                {
+                    map[i][j].num++;
+                }
+            }
+        }
+    }
+    display();
+}
+function play()
+{
+    if(flag1)
+    {
+        flag1=false;
+        t=setInterval(timer,1000);
+    }    
+    i=this.parentNode.rowIndex;
+    j=this.cellIndex;
+    if((map[i][j].state=="unmarked")&&(str=="open"))
+    {
+        map[i][j].state="marked";    
+    }
+    else if(map[i][j].state=="marked")
+    {
+        if((map[i][j].mine)&&(str=="open"))
+        {
+            clearInterval(t);
+            flag1=true;
+            tym=0;
+            choice=confirm("GAME OVER!\nPress OK to restart the same game\nPress Cancel to start a new game");
+            if(!choice)
+            {
+                start();
+            }
+            else
+            {
+                watch.innerHTML="0:0";
+                for(i=0;i<9;i++)
+                {
+                    for(j=0;j<9;j++)
+                    {
+                        map[i][j].state="unmarked";
+                    }
+                }
+                display();
+            }
+        }
+        else
+        {
+            map[i][j].state=str;
+        }
+    }
+    str="open";
+    openup();
+    display();
+}
+function timer()
+{
+    tym++;
+    watch.innerHTML=eval(Math.floor(tym/60))+":"+eval(tym%60);
+}    
+function display()
+{
+    var  flag2=0;
+    for(i=0;i<9;i++)
+    {
+        for(j=0;j<9;j++)
+        {
+            if(map[i][j].state=="unmarked")
+            {
+                table.rows[i].cells[j].style.background="lightgreen";
+                table.rows[i].cells[j].innerHTML=null;
+            }
+            else if(map[i][j].state=="marked")
+            {
+                table.rows[i].cells[j].style.background="orange";
+                table.rows[i].cells[j].innerHTML="X";
+            }
+            else if(map[i][j].state=="open")
+            {
+                table.rows[i].cells[j].style.background="blue";
+                table.rows[i].cells[j].innerHTML=map[i][j].num;
+                if(map[i][j].num==0)
+                {
+                    table.rows[i].cells[j].innerHTML=null;
+                }
+                flag2++;
+            }
+            if(flag2==71)
+            {
+                alert("Congratulations!\nYour time was "+eval(Math.floor(tym/60))+":"+eval(tym%60)+"\nPress OK to start a new game");
+                document.getElementsByTagName("body")[0].style.background="white";
+                clearInterval(t);
+                flag1=true;
+                tym=0;
+                start();
+            }    
+        }
+    }
+}
+function openup()
+{
+    var flag3;
+    do
+    {
+        flag3=false;
+        for(i=0;i<9;i++)
+        {
+            for(j=0;j<9;j++)
+            {
+                var a,b;
+                a=i-1;
+                for(b=j-1;b<=j+1;b++)
+                {
+                    if((a>=0)&&(b>=0)&&(b<9)&&(map[i][j].num==0)&&(map[i][j].state=="open")&&(map[a][b].state=="unmarked"))
+                    {
+                        map[a][b].state="open";
+                        flag3=true;
+                    }
+                }
+                a++;
+                b=j-1;
+                if((b>=0)&&(map[i][j].num==0)&&(map[i][j].state=="open")&&(map[a][b].state=="unmarked"))
+                {
+                    map[a][b].state="open";
+                    flag3=true;
+                }
+                b=j+1;
+                if((a<9)&&(b<9)&&(map[i][j].num==0)&&(map[i][j].state=="open")&&(map[a][b].state=="unmarked"))
+                {
+                    map[a][b].state="open";
+                    flag3=true;    
+                }
+                a++;
+                for(b=j-1;b<=j+1;b++)
+                {
+                    if((a<9)&&(b>=0)&&(b<9)&&(map[i][j].num==0)&&(map[i][j].state=="open")&&(map[a][b].state=="unmarked"))
+                    {
+                        map[a][b].state="open";
+                        flag3=true;
+                    }
+                }
+            }
+        }
+    }while(flag3)
+}
+function removemark()
+{
+    str="unmarked";
+}
